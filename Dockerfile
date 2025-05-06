@@ -7,6 +7,8 @@ RUN npm install
 
 COPY . .
 RUN npm install -g typescript
+RUN npm install sequelize
+RUN npm install express
 RUN tsc
 
 FROM node:18-alpine AS production
@@ -18,4 +20,4 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 
 EXPOSE 3000
-CMD ["node", "dist/index.js"]
+CMD ["node", "dist/src/main.js"]
