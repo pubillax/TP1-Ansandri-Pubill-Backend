@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: alumnoipm
+      MYSQL_DATABASE: cuentaBancaria
+    ports:
+      - "3306:3306"
+
+  backend:
+    build: .
+    container_name: cuenta-bancaria-backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_USER: Alumno
+      DB_PASS: root
+      DB_NAME: cuentaBancaria
