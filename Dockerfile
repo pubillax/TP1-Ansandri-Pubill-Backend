@@ -7,6 +7,8 @@ RUN npm install
 
 COPY . .
 RUN npm install -g typescript
+RUN npm install sequelize
+RUN npm install express
 RUN tsc
 
 FROM node:18-alpine AS production
