@@ -2,11 +2,14 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import { cuentaBancariaRouter } from './routes/index';
 import { sequelize } from './database';
+import  authRoutes from './routes/auth.routes';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 const port = 3012;
 
-async function testConnection() {
+async function testConnection() { //no hacerlo con exc
   try {
     await sequelize.authenticate();
     console.log('Conexión a la base de datos establecida correctamente.');
@@ -17,7 +20,6 @@ async function testConnection() {
 testConnection();
 
 const whitelist = ['http://localhost:4200', 'https://miapp.com'];
-
 app.use(cors({
   origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
     if (!origin || whitelist.includes(origin)) {
@@ -35,6 +37,8 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use('/cuentaBancaria', cuentaBancariaRouter);
+
+app.use('/auth', authRoutes);
 
 app.use((err: Error, req: Request, res: Response, next: Function) => {
   if (err.message === 'No permitido por CORS') {

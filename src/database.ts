@@ -9,5 +9,4 @@ const sequelizeConfig: SequelizeOptions = {
     database: 'cuentaBancaria',
     models: [cuentaBancaria], 
 };
-
 export const sequelize = new Sequelize(sequelizeConfig);

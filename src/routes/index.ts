@@ -2,6 +2,11 @@ import express, { Request, Response } from 'express';
 import { cuentaBancariaController } from '../controllers/cuentaBancaria';
 export let cuentaBancariaRouter = express.Router();
 
+console.log("JWT_SECRET:", process.env.JWT_SECRET); //borralo brotha
+const secretKey = 'tu_clave_secreta';
+
+
+
 function parseBool(value: string): boolean {
   return value.toLowerCase() === 'true';
 }
